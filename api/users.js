@@ -1,5 +1,5 @@
 var express = require('express');
-var router = express.Router();
+//var router = express.Router();
 
 let users = [
   {id: 1, name: 'John', likes: "Odla, Kaniner, långa promenader"},
@@ -10,11 +10,11 @@ let users = [
 ]
 
 /* GET users listing. */
-router.get('/', function(req, res, next) {
+app.get('/', function(req, res, next) {
   res.json(users);
 });
 
-router.post('/', function(req, res, next) {
+app.post('/', function(req, res, next) {
 
   let newUser = req.body;
   newUser.id = users.length + 1;
