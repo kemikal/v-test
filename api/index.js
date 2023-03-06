@@ -1,20 +1,27 @@
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
+const app = require('express')();
 
-var indexRouter = require('./routes/index');
-var usersRouter = require('./api/users');
+let users = [
+    {id: 1, name: 'John', likes: "Odla, Kaniner, långa promenader"},
+    {id: 2, name: 'Jane', password: "test"},
+  ]
 
-var app = express();
+app.get('/api', (req, res) => {
+  res.json(users)
+});
 
-app.use(logger('dev'));
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+app.get('/api/item/:slug', (req, res) => {
+  const { slug } = req.params;
+  res.end(`Item: ${slug}`);
+});
 
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
+app.post('/', function(req, res, next) {
+
+  let newUser = req.body;
+  newUser.id = users.length + 1;
+  users.push(newUser);
+  console.log(newUser);
+
+  res.json(users);
+});
 
 module.exports = app;
