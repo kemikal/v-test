@@ -1,5 +1,5 @@
 var express = require('express');
-//var router = express.Router();
+var app = express();
 
 let users = [
   {id: 1, name: 'John', likes: "Odla, Kaniner, långa promenader"},
