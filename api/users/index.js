@@ -24,4 +24,4 @@ app.post('/', function(req, res, next) {
   res.json(users);
 });
 
-module.exports = router;
+module.exports = app;
