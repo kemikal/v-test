@@ -1,17 +1,20 @@
-const app = require('express')();
+var express = require('express');
+var path = require('path');
+var cookieParser = require('cookie-parser');
+var logger = require('morgan');
 
-let users = [
-    {id: 1, name: 'John', likes: "Odla, Kaniner, långa promenader"},
-    {id: 2, name: 'Jane', password: "test"},
-  ]
+var indexRouter = require('./routes/index');
+var usersRouter = require('./api/users');
 
-app.get('/api', (req, res) => {
-  res.json(users)
-});
+var app = express();
 
-app.get('/api/item/:slug', (req, res) => {
-  const { slug } = req.params;
-  res.end(`Item: ${slug}`);
-});
+app.use(logger('dev'));
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+app.use(cookieParser());
+app.use(express.static(path.join(__dirname, 'public')));
+
+app.use('/', indexRouter);
+app.use('/users', usersRouter);
 
 module.exports = app;
