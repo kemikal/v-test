@@ -10,11 +10,11 @@ let users = [
 ]
 
 /* GET users listing. */
-router.get('/', function(req, res, next) {
+app.get('/', function(req, res, next) {
   res.json(users);
 });
 
-router.get('/:userId', function(req, res, next) {
+app.get('/:userId', function(req, res, next) {
   userId = req.params.userId;
   console.log(userId);
 
@@ -23,7 +23,7 @@ router.get('/:userId', function(req, res, next) {
   res.json(findUser);
 });
 
-router.post('/login', function(req, res, next) {
+app.post('/login', function(req, res, next) {
   const { name, password } = req.body;
   const foundUser = users.find(user => user.name === name);
 
