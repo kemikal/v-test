@@ -1,27 +1,16 @@
 const app = require('express')();
-
-let users = [
-    {id: 1, name: 'John', likes: "Odla, Kaniner, långa promenader"},
-    {id: 2, name: 'Jane', password: "test"},
-  ]
+const { v4 } = require('uuid');
 
 app.get('/api', (req, res) => {
-  res.json(users)
+  const path = `/api/item/${v4()}`;
+  res.setHeader('Content-Type', 'text/html');
+  res.setHeader('Cache-Control', 's-max-age=1, stale-while-revalidate');
+  res.end(`Hello! Go to item: <a href="${path}">${path}</a>`);
 });
 
 app.get('/api/item/:slug', (req, res) => {
   const { slug } = req.params;
   res.end(`Item: ${slug}`);
-});
-
-app.post('/', function(req, res, next) {
-
-  let newUser = req.body;
-  newUser.id = users.length + 1;
-  users.push(newUser);
-  console.log(newUser);
-
-  res.json(users);
 });
 
 module.exports = app;
