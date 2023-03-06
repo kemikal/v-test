@@ -1,11 +1,15 @@
 const app = require('express')();
-const { v4 } = require('uuid');
+
+let users = [
+    {id: 1, name: 'John', likes: "Odla, Kaniner, långa promenader"},
+    {id: 2, name: 'Jane', password: "test"},
+    {id: 3, name: 'Bob'},
+    {id: 4, name: 'Alice'},
+    {id: 5, name: 'Bengt'}
+  ]
 
 app.get('/api', (req, res) => {
-  const path = `/api/item/${v4()}`;
-  res.setHeader('Content-Type', 'text/html');
-  res.setHeader('Cache-Control', 's-max-age=1, stale-while-revalidate');
-  res.end(`Hello! Go to item: <a href="${path}">${path}</a>`);
+  res.json(users)
 });
 
 app.get('/api/item/:slug', (req, res) => {
